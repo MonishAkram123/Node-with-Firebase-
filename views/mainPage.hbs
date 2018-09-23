@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<!-- Bootstrap Links -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<!-- Page Title  -->
+	<title>Main Page</title>
+</head>
+<body>
+
+<!-- Student Modal -->
+	<!-- Modal content starts here -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="studentModal">
+		<div class="modal-dialog" role="document">
+			<form action="/registerStudent" method="GET"> 	<!-- Importent here you will set your page request -->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Registration Details</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" style="padding: 24px;">
+						<!-- Input fields go here -->
+						<input type="text" name="name" placeholder="Students Name" class="form-control" required="true" style="margin-bottom: 16px;">
+						<input type="text" name="registrationID" placeholder="Registration ID" class="form-control" required="true" style="margin-top: 16px; margin-bottom: 8px;">
+						<h6 class="label">Subjects: </h6>
+						<input type="checkbox" name="subject" value="Java" style="margin-top: 8px;"> Java
+						<input type="checkbox" name="subject" value="C++" style="margin-top: 8px;"> C++
+						<input type="checkbox" name="subject" value="Python" style="margin-top: 8px;"> Python
+						<select name = "teacher" class="custom-select" style="margin-top: 8px;" required="true">
+							{{#each teachers}}
+							<option value="{{TeacherID}}">{{Name}}</option>
+							{{/each}}
+						</select>
+						<!-- Iput fields ends here -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary" style="min-width: 150px;">Register</button> <!-- Submit button -->
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- Modal content ends here -->
+
+
+	<!-- Teacher Modal -->
+	<!-- Modal content starts here -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="teacherModal">
+		<div class="modal-dialog" role="document">
+			<form action="/registerTeacher" method="GET"> 	<!-- Importent here you will set your page request -->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Registration Details</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" style="padding: 24px;">
+						<!-- Input fields go here -->
+						<input type="text" name="name" placeholder="Teacher Name" class="form-control" required="true" style="margin-bottom: 16px;">
+						<input type="text" name="teacherID" placeholder="Teacher ID" class="form-control" required="true" style="margin-top: 16px; margin-bottom: 8px;">
+						<h6 class="label">Favourite Subjects: </h6>
+						<input type="checkbox" name="subject" value="Java" style="margin-top: 8px;"> Java
+						<input type="checkbox" name="subject" value="C++" style="margin-top: 8px;"> C++
+						<input type="checkbox" name="subject" value="Python" style="margin-top: 8px;"> Python
+						<input type="number" name="salary" placeholder="Salary" class="form-control" style="margin-top: 8px;">
+						<!-- Iput fields ends here -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary" style="min-width: 150px;">Register</button> <!-- Submit button -->
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- Modal content ends here -->
+
+
+	<!-- page content starts here -->
+	<div class="container">
+		<div class="row" style="margin-top: 8px;">
+			<div class="col-lg-6">
+				<h1>Hello {{user}}</h1>
+			</div>
+			<div class="col-lg-6" align="right" style="margin-top: 8px;">
+				<button type="button" class="btn btn-primary" data-toggle = "modal" data-target="#studentModal">Register New Student</button>
+				<button type="button" class="btn btn-primary" data-toggle = "modal" data-target="#teacherModal">Register New Teacher</button>
+			</div>
+		</div>
+		<hr  style="border-width: 2px">
+		<form action="/getStudentList" method="GET">
+			<input type="hidden" name="user" value="{{user}}">
+			<select class="btn btn-success" style="width: 200px;" name="teacherID">
+				<option selected="true">Select teacher</option>
+				{{#each teachers}}
+					<option value="{{TeacherID}}">{{Name}}</option>
+				{{/each}}
+			</select>
+			<button type="submit" class="btn btn-primary">Get List</button>
+		</form>
+	</div>
+
+	<!-- page content ends here -->
+
+	<!-- Bootstrap Scripts -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
